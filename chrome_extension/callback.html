@@ -1,0 +1,77 @@
+<div id="pcwidget-callback" class="cx-widget ow-modal cx-theme-custom" data-gcb-service-node="true" style="margin-left: -354px; opacity: 1; transform: scale(0); transition: all .5s cubic-bezier(0, 1, 0.5, 1)">
+  <div class="cx-widget ark cx-common-container cx-overlay cx-close cx-theme-custom cx-callback-container">
+	<div class="cx-close cx-button-group cx-buttons-window-control">
+		<i id="pc-callback-button-close"  class="fa fa-close" style="width:15px;cursor:pointer;" aria-hidden="true"></i>
+	</div>
+	<div class="cx-titlebar">
+		<div class="cx-icon"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" viewBox="0 0 100 100"><path class="cx-svg-icon-tone1" d="M83,46v-9H67.3l21.3-21.1L83,10.1L62,31.5V17h-8v29H83z"></path>	<path class="cx-svg-icon-tone2" d="M89.8,73.5l-13-13c-1.8-1.8-4.8-1.7-6.7,0.2l-1.8,1.8l-2.6,2.6c-5,5-13,5.2-17.8,0.4l-2.2-2.2L35,52.5c-4.8-4.8-4.6-12.7,0.4-17.8l1.5-1.4l1.1-1.1l1.8-1.8c1.9-1.9,1.9-4.9,0.1-6.7l-13-13c-1.8-1.8-4.8-1.7-6.7,0.2l-2.9,3.3c-3.4,3.4-5.8,7.9-6.4,11.7C9.4,35.4,15,53.7,31,69.7c0,0,0.1,0.1,0.1,0.1c0,0,0,0.1,0.1,0.1c16,16,34.3,21.6,43.9,20.1c3.9-0.6,8.3-3,11.7-6.4l2.9-3.3C91.6,78.3,91.6,75.3,89.8,73.5z"></path><path class="cx-svg-icon-shadow1" d="M89.8,73.5l-13-13c-1.8-1.8-4.8-1.7-6.7,0.2l-1.8,1.8l-2.6,2.6c-5,5-13,5.2-17.8,0.4l-2.2-2.2L41.5,59L30.9,69.6c0,0,0.1,0.1,0.1,0.1c0,0,0.1,0.1,0.1,0.1c0,0,0,0.1,0.1,0.1c16,16,34.3,21.6,43.9,20.1c3.9-0.6,8.3-3,11.7-6.4l2.9-3.3C91.6,78.3,91.6,75.3,89.8,73.5z"></path></svg></div>
+		<div class="cx-title i18n" data-message="Title">Être rappelé</div>
+	</div>
+	<div class="cx-body"><div class="cx-callback">
+
+	<div class="error-container">
+	</div>
+
+	<div class="spinner">
+		<div class="spinner-container fast-spinner dark-background">
+			<div class="spin-circle"></div>
+			<div class="spin-inner-circle"></div>
+		</div>
+	</div>
+
+	<div class="callback-header-container">
+		<div class="i18n title-description" data-message="CallbackTitleDescription">Merci de saisir vos coordonées.</div>
+		<div class="i18n title-booked-description" data-message="CallbackBookedDescription">You're booked in!</div>
+		<label id="current-date" class="i18n control-label today-date" data-message="CallbackTodayDate" data-message-type="date">Today, 23 May at 22:46</label>
+	</div>
+
+	<form class="cx-content" data-async="" enctype="multipart/form-data" role="form" novalidate="" tabindex="0">
+		<div class="cx-wrapper">
+			<div class="cx-callback-details">
+				<table>
+					<tbody><tr>
+						<th><label class="control-label i18n" for="cx_form_callback_firstname" data-message="CallbackFirstName">Prénom</label></th>
+						<td><i class="fonticon icon-alert-circle"></i><input class="form-control i18n cx-callback-firstname" id="cx_form_callback_firstname" maxlength="100" name="firstname" type="text" data-message="CallbackPlaceholderFirstName" data-message-type="placeholder" autofocus="" placeholder="Requis"></td>
+					</tr>
+					<tr>
+						<th><label class="control-label i18n" for="cx_form_callback_lastname" data-message="CallbackLastName">Nom</label></th>
+						<td><i class="fonticon icon-alert-circle"></i><input class="form-control i18n cx-callback-lastname" id="cx_form_callback_lastname" maxlength="100" name="lastname" type="text" data-message="CallbackPlaceholderLastName" data-message-type="placeholder" placeholder="Requis"></td>
+					</tr>
+					<tr>
+						<th><label class="control-label i18n" for="cx_form_callback_phone_number" data-message="CallbackPhoneNumber">Téléphone</label></th>
+						<td><i class="fonticon icon-alert-circle"></i><input class="form-control i18n cx-callback-phone-number" id="cx_form_callback_phone_number" maxlength="20" name="phonenumber" type="tel" data-message="CallbackPlaceholderPhoneNumber" data-message-type="placeholder" onkeypress="return (event.charCode >= 48 &amp;&amp; event.charCode <= 57) || (event.charCode == 43)" placeholder="Requis"></td>
+					</tr>
+					<tr>
+						<th><label class="control-label i18n" for="cx_form_callback_email" data-message="CallbackEmail">Email</label></th>
+						<td><i class="fonticon icon-alert-circle"></i><input class="form-control i18n cx-callback-email" id="cx_form_callback_email" maxlength="100" name="email" type="email" data-message="CallbackPlaceholderEmail" data-message-type="placeholder" placeholder="Facultatif"></td>
+					</tr>
+				</tbody></table>
+			</div>
+
+			<div class="cx-callback-notes">
+				<table>
+					<tbody><tr>
+						<th><label class="control-label i18n cx-callback-notes-label" for="cx_form_callback_subject" data-message="CallbackNotes">Notes</label></th>
+						<td><textarea id="cx_form_callback_subject" name="subject" class="form-control i18n" rows="5" data-message-type="placeholder" data-message="CallbackPlaceholderNotes" placeholder="Optional"></textarea></td>
+					</tr>
+				</tbody></table>
+			</div>
+
+		</div>
+	</form>
+
+
+
+	<div class="cx-button-group cx-callback-done">
+		<button class="i18n btn btn-primary" data-message="CallbackDone" tabindex="0">Done</button>
+	</div>
+
+<div></div></div></div>
+	<div class="cx-footer">
+		<div class="cx-button-container"><div class="cx-button-group cx-buttons-binary">
+		<button id="pcwidget-cancel-callback" class="i18n btn btn-default cx-callback-cancel" data-message="CancelButtonText" tabindex="0" style="color: rgb(68, 74, 82) !important;">Annuler</button>
+		<button id="pcwidget-send-callback" class="i18n btn btn-primary cx-callback-confirm" data-message="ConfirmButtonText" tabindex="0">Confirmer</button>
+	</div></div>
+		<div class="cx-powered-by">Powered by <span class="icon-special-g-brandmark"></span>Genesys</div>
+	</div>
+</div></div>

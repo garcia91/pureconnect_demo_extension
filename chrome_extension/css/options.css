@@ -1,0 +1,26 @@
+html {
+    width: 600px;
+    height: 200px;
+}
+
+body {
+    width: 600px;
+    height: 200px;
+}
+
+.options-panel-right {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    padding: 10px;
+ }
+
+ .input-group {
+    margin: 10px;
+ }
+
+ .input-group-addon {
+     min-width: 160px;
+ }

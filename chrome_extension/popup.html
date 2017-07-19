@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/popup.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="libs/jquery.min.js"></script>
+    <script src="libs/bootstrap.min.js"></script>
+    <script src="libs/icws.js"></script>
+    <script src="libs/jscolor.min.js"></script>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <div id="gif_loader" style="position:fixed;width:100vw; height:100vh; display:flex; background: #FFF; opacity: 0.9; z-index:9999;">
+      <div style="margin: auto auto;" >
+        <img src="img/preloader.gif" height="64" width="64">
+        <p id="gif_loader_message" style="opacity: 0; transition: opacity 1s ease-in; margin: auto; position: absolute;top: 0;left: 0;bottom: 0;right: 0;height: 0;text-align: center; padding-top: 32px;">
+          <em>Il va peut-etre falloir recharger la page du client (F5) avant de rouvrir l'extension...</em>
+        </p>
+      </div>
+    </div>
+    <nav class="navbar navbar-default" style="margin-bottom: 4px;">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <img alt="Brand" src="" style="height: 24px;" id="callback_site_logo">
+          </a>
+          <a class="navbar-brand" href="#">
+            <span style="padding-left: 4px;" id="callback_site_name"></span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#tab_global" aria-controls="tab_global" role="tab" data-toggle="tab">Global</a></li>
+        <li role="presentation"><a href="#tab_callback" aria-controls="tab_callback" role="tab" data-toggle="tab">Callback</a></li>
+        <li role="presentation"><a href="#tab_chat" aria-controls="tab_chat" role="tab" data-toggle="tab">Chat</a></li>
+      </ul>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="tab_global" style="margin:20px">
+          <form class="form-horizontal">
+            <div class="form-group form-group-sm">
+              <label for="global_color" class="section-label"><span class="glyphicon glyphicon-chevron-right" style="color:#5cb85c;"></span> Couleur de l'icone</label>
+              <input id="global_color" type="text" class="form-control jscolor {hash:true}" placeholder="Couleur au format #ABCDEF">
+            </div>
+            <div class="form-group form-group-sm">
+              <button type="button" id="global_save" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-saved"></span> Save & Apply</button>
+            </div>
+          </form>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="tab_callback" style="margin:20px">
+          <form class="form-horizontal">
+            <div class="form-group form-group-sm">
+              <label for="callback_queueName" class="section-label"><span class="glyphicon glyphicon-chevron-right" style="color:#5cb85c;"></span> Queue</label>
+              <input list="callback_queueList" type="text" id="callback_queueName" class="form-control" placeholder="Queue Name">
+              <datalist id="callback_queueList">
+              </datalist>
+            </div>
+            <div class="form-group form-group-sm">
+              <label for="callback_accountName" class="section-label"><span class="glyphicon glyphicon-chevron-right" style="color:#5cb85c;"></span> CRM Account Name</label>
+              <div class="input-group input-group-sm">
+                <span class="input-group-addon">
+                  <input type="checkbox" id="callback_getCRMAccountInfo">
+                </span>
+                <input type="text" id="callback_accountName" class="form-control" placeholder="Account Name">
+              </div>
+              <div id="callback_nonCRMAccountDetails" style="display: none;">
+                <div class="input-group input-group-sm">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-star"></span></span>
+                  <input type="number" class="form-control" id="callback_accountPriority" placeholder="Priority" aria-describedby="sizing-addon3">
+                </div>
+              </div>
+            </div>
+            <div class="form-group form-group-sm">
+              <label class="section-label"><span class="glyphicon glyphicon-chevron-right" style="color:#5cb85c;"></span> Custom attributes<br>
+                <label style="font-size: xx-small;">Pour saisir une valeur soi-meme ajouter " avant et apres le texte ex : "Assistance"</label>
+              </label>
+              <ul id="callback_customAttributes" class="list-group" style="margin-bottom: 0;">
+              </ul>
+              <li id="callback_customAttributesItem" class="list-group-item" style="display:none;padding: 5px 10px 20px 10px;">
+                <button type="button" class="close" id="callback_customAttribute_remove"><span aria-hidden="true">&times;</span></button>
+                <span id="callback_customAttribute_name"></span>
+                <span class="badge" id="callback_customAttribute_el" style="margin-right:4px;font-size:0.6em;"></span>
+              </li>
+            </div>
+            <div class="form-group form-group-sm">
+              <button type="button" style="display:inline-block;" id="callback_searchForWebpageElement" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-screenshot"></span></button>
+              <input style="width: 30%; display:inline-block;" type="text" id="callback_propertyToAdd_pageElement" class="form-control" placeholder="Element to click">
+              <input list="callback_variableList" style="width: 30%; display:inline-block;" type="text" id="callback_propertyToAdd_name" class="form-control" placeholder="Attribute Name">
+              <datalist id="callback_variableList">
+              </datalist>
+              <button type="button" style="display:inline-block;" id="callback_addCustomAttribute" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus"></span> Add</button>
+            </div>
+            <div class="form-group form-group-sm">
+              <label for="callback_message" class="section-label"><span class="glyphicon glyphicon-chevron-right" style="color:#5cb85c;"></span> Message</label>
+              <textarea class="form-control" rows="3" id="callback_message"></textarea>
+            </div>
+            <div class="form-group form-group-sm">
+              <button type="button" id="callback_save" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-saved"></span> Save & Apply</button>
+            </div>
+          </form>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="tab_chat" style="margin:20px">
+          <form class="form-horizontal">
+            <div class="form-group form-group-sm">
+              <label for="chat_queueName" class="section-label"><span class="glyphicon glyphicon-chevron-right" style="color:#5cb85c;"></span> Queue</label>
+              <input list="chat_queueList" type="text" id="chat_queueName" class="form-control" placeholder="Queue Name">
+              <datalist id="chat_queueList">
+              </datalist>
+            </div>
+            <div class="form-group form-group-sm">
+              <label for="chat_accountName" class="section-label"><span class="glyphicon glyphicon-chevron-right" style="color:#5cb85c;"></span> CRM Account Name</label>
+              <div class="input-group input-group-sm">
+                <span class="input-group-addon">
+                  <input type="checkbox" id="chat_getCRMAccountInfo">
+                </span>
+                <input type="text" id="chat_accountName" class="form-control" placeholder="Account Name">
+              </div>
+              <div id="chat_nonCRMAccountDetails" style="display: none;">
+                <div class="input-group input-group-sm">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-star"></span></span>
+                  <input type="number" class="form-control" id="chat_accountPriority" placeholder="Priority">
+                </div>
+              </div>
+            </div>
+            <div class="form-group form-group-sm">
+              <label class="section-label"><span class="glyphicon glyphicon-chevron-right" style="color:#5cb85c;"></span> Custom attributes
+              </label>
+              <ul id="chat_customAttributes" class="list-group" style="margin-bottom: 0;">
+              </ul>
+              <li id="chat_customAttributesItem" class="list-group-item" style="display:none;padding: 5px 10px 20px 10px;">
+                <button type="button" class="close" id="chat_customAttribute_remove"><span aria-hidden="true">&times;</span></button>
+                <span id="chat_customAttribute_name"></span>
+                <span class="badge" id="chat_customAttribute_el" style="margin-right:4px;font-size:0.6em;"></span>
+              </li>
+            </div>
+            <div class="form-group form-group-sm">
+              <button type="button" style="display:inline-block;" id="chat_searchForWebpageElement" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-screenshot"></span></button>
+              <input style="width: 30%; display:inline-block;" type="text" id="chat_propertyToAdd_pageElement" class="form-control" placeholder="Element to click">
+              <input style="width: 30%; display:inline-block;" type="text" id="chat_propertyToAdd_name" class="form-control" placeholder="Attribute Name">
+              <button type="button" style="display:inline-block;" id="chat_addCustomAttribute" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus"></span> Add</button>
+            </div>
+            <div class="form-group form-group-sm">
+              <label for="chat_welcomeMessage" class="section-label"><span class="glyphicon glyphicon-chevron-right" style="color:#5cb85c;"></span> Welcome Message</label>
+              <textarea class="form-control" rows="3" id="chat_welcomeMessage"></textarea>
+            </div>
+            <div class="form-group form-group-sm">
+              <div class="input-group input-group-sm">
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-default dropdown-toggle" type="button" id="chat_bigLogoDropdown" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-picture"></span> Big logo <span class="caret"></span>
+                  </button>
+                  <ul id="chat_bigLogoDropdown_list" class="dropdown-menu"></ul>
+                </div><!-- /btn-group -->
+                <input type="text" class="form-control" id="chat_bigLogo">
+              </div><!-- /input-group -->
+              <div class="input-group input-group-sm">
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-default dropdown-toggle" type="button" id="chat_smallLogoDropdown" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-comment"></span> Small logo <span class="caret"></span>
+                  </button>
+                  <ul id="chat_smallLogoDropdown_list" class="dropdown-menu"></ul>
+                </div><!-- /btn-group -->
+                <input type="text" class="form-control" id="chat_smallLogo">
+              </div><!-- /input-group -->
+            </div><!-- /form-group -->
+            <div class="form-group form-group-sm">
+              <button type="button" id="chat_save" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-saved"></span> Save & Apply</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
