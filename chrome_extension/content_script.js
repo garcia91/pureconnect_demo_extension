@@ -176,34 +176,21 @@ var preparePCWidget = function(config){
   $.get(chrome.runtime.getURL("mediaselection.html"), function(mediaselection){
     $("body").append(mediaselection);
 
-    //TODO: Get estimated wait time
-    /*
-    routingApi.getQueuesQueueIdMediatypesMediatypeEstimatedwaittime(config.callback.queue.id, "CALLBACK")
-    .then(function(result){
-      var ewt = result.results[0].estimatedWaitTimeSeconds;
-      var waitime = "Disponible";
-      if(ewt){
-        waitime = Math.round(ewt / 60) + " min" + ((Math.round(ewt / 60) > 1)?"s":"");
-      }
-      $("#pcwidget-chat-ewt").text(waitime);
-    })
-    .catch(function(error){
-      console.log(error);
+    var config = getConfig().chat;
+    var queue = config.queue;
+
+    Chat.initialize();
+    Chat.targetWorkgroup = queue.id;
+    Chat.queryQueue(function(res){
+      var ewt = res.queue.estimatedWaitTime;
+      $("#pcwidget-chat-ewt").text(
+        Math.round(ewt / 60) + " min" + ((Math.round(ewt / 60) > 1)?"s":"")
+      );
+      $("#pcwidget-call-ewt").text(
+        Math.round(ewt / 60) + " min" + ((Math.round(ewt / 60) > 1)?"s":"")
+      );
     });
 
-    routingApi.getQueuesQueueIdMediatypesMediatypeEstimatedwaittime(config.callback.queue.id, "CALL")
-    .then(function(result){
-      var ewt = result.results[0].estimatedWaitTimeSeconds;
-      var waitime = "Disponible";
-      if(ewt){
-        waitime = Math.round(ewt / 60) + " min" + ((Math.round(ewt / 60) > 1)?"s":"");
-      }
-      $("#pcwidget-call-ewt").text(waitime);
-    })
-    .catch(function(error){
-      console.log(error);
-    });
-    */
   });
 
   $.get(chrome.runtime.getURL("callback.html"), function(callback){

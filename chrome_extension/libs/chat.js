@@ -8,11 +8,8 @@
       return 'http://' + this.icServer + ':8114'
     },
 
+
     initialize: function () {
-        /*$('#btnSend').click(function () {
-            Chat.sendMessage();
-        });
-        */
         console.log("keyup");
         $('#cx-chat-textmessage').keyup(function (event) {
             console.log("keyup");
@@ -20,6 +17,25 @@
                 Chat.sendMessage();
             }
         });
+    },
+
+    queryQueue: function(callback){
+      $.ajax({
+          type: "POST",
+          url: this.baseUrl() + "/websvcs/queue/query",
+          data: JSON.stringify({
+            "queueName": Chat.targetWorkgroup,
+            "queueType": "Workgroup",
+            "participant": {
+              "name": "demo",
+              "credentials": null
+            }
+          }),
+          success: function (res) {
+              if(callback)
+                callback(res);
+          }
+      });
     },
 
     sendMessage: function () {
