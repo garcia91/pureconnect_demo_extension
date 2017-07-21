@@ -1,6 +1,6 @@
 {
   "name": "PureConnect Demo Extension",
-  "description": "Create a chat or a callback for your PureConnect",
+  "description": "Create a chat or a callback for your PureConnect by Laurent Millan <laurent.millan@genesys.com>",
   "version": "1.0",
   "author": "Laurent Millan <laurent.millan@genesys.com>",
   "browser_action": {

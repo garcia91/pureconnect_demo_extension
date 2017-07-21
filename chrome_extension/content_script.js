@@ -419,10 +419,11 @@ var postCallback = function(contact){
   });
 
   contact.WebpageURL = window.location.href.substring(0,100);
+  contact.subject = $("#cx_form_callback_subject").text();
 
   Callback.targetWorkgroup = queue.id;
   Callback.start({
-    subject: contact.subject?contact.subject:"Demande de rappel web",
+    subject: contact.subject,
     name: contact.Account_Name,
     phone: contact.Account_PhoneNumber,
     success: function(){
