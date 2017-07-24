@@ -210,8 +210,10 @@ $().ready( function(){
     })
 
     $("#callback_save").click(function(){
-      if(_tab)
+      if(_tab){
         _tab.postMessage({type: "configSaveReq", body: _configuration});
+        setTimeout(function(){window.close();}, 300);
+      }
     });
   }
 
@@ -236,8 +238,10 @@ $().ready( function(){
     })
 
     $("#global_save").click(function(){
-      if(_tab)
+      if(_tab){
         _tab.postMessage({type: "configSaveReq", body: _configuration});
+        setTimeout(function(){window.close();}, 300);
+      }
     });
 
   }
@@ -302,8 +306,10 @@ $().ready( function(){
     })
 
     $("#chat_save").click(function(){
-      if(_tab)
+      if(_tab){
         _tab.postMessage({type: "configSaveReq", body: _configuration});
+        setTimeout(function(){window.close();}, 300);
+      }
     });
 
   }
