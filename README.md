@@ -49,3 +49,6 @@ Select a color to change color set of the widget
 * `Welcome Message` : For future use.
 * `Big logo` : For future use.
 * `Small logo` : For future use.
+
+### Troubleshooting
+In case the configuration popup is stuck in loading mode : close the popup window and do `CTRL` + `F5` on the customer's website. Then you should be able to open the extension properly.
